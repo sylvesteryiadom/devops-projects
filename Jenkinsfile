@@ -8,7 +8,7 @@ pipeline {
 
                 sshagent(['ec-user-ssh']) {
                     sh """
-                    ssh -o StrictHostKeyChecking=no ubuntu@54.87.26.116 docker pull welcome-to-docker:latest
+                    ssh -o StrictHostKeyChecking=no ubuntu@54.87.26.116 docker run -d -p8088:80 docker/welcome-to-docker
                     """
                 }
 
