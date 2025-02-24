@@ -6,7 +6,7 @@ pipeline {
             steps {
                 echo "🚀 Deploying application to EC2..."
 
-                sshagent(['ec2-user-ssh']) {
+                sshagent(['ec-user-ssh']) {
                     sh """
                     ssh -o StrictHostKeyChecking=no ubuntu@54.87.26.116 docker ps
                     """
