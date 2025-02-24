@@ -1,22 +1,18 @@
 pipeline {
     agent any
-    
-    tools{
-        maven 'maven-3.9'
-    }
-
-    // environment {
-    //     IMAGE_NAME = 'sylvesteryiadom/java-maven-repo'
-    //     IMAGE_TAG = '01'
-    //     DOCKER_CREDENTIALS = credentials('dockerhub-creddentials') // Jenkins Docker Hub Credentials ID
-    // }
 
     stages {
-        stage('Build with Maven') {
+        stage('Connect to EC2 instance') {
             steps {
-                echo "🔨 Running Maven Package..."
-                sh 'mvn clean package'
-                echo "✅ Maven Build Completed!"
+                echo "🚀 Deploying application to EC2..."
+
+                sshagent(['ec2-user-ssh']) {
+                    sh """
+                    ssh -o StrictHostKeyChecking=no ubuntu@54.87.26.116 docker ps
+                    """
+                }
+
+                echo "✅ Deployment to EC2 Completed!"
             }
         }
     }
